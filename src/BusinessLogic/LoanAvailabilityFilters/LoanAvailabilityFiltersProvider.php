@@ -3,13 +3,14 @@
 namespace App\BusinessLogic\LoanAvailabilityFilters;
 
 use App\Contracts\LoanAvailabilityFilterInterface;
+use App\Contracts\LoanAvailabilityFiltersProviderInterface;
 
-abstract class FilterRegistry
+class LoanAvailabilityFiltersProvider implements LoanAvailabilityFiltersProviderInterface
 {
     /**
      * @return LoanAvailabilityFilterInterface[]
      */
-    public static function getAll(): array
+    public function getAll(): array
     {
         return [
             new AgeFilter(),

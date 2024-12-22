@@ -3,13 +3,14 @@
 namespace App\BusinessLogic\Modifiers;
 
 use App\Contracts\ProductModifierInterface;
+use App\Contracts\ProductModifiersProviderInterface;
 
-abstract class ProductModifiersRegistry
+class ProductModifiersProvider implements ProductModifiersProviderInterface
 {
     /**
      * @return ProductModifierInterface[]
      */
-    public static function getAll(): array
+    public function getAll(): array
     {
         $modifier1 = new AwesomeCalifornianModifier();
 

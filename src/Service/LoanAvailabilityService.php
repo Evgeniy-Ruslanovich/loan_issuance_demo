@@ -2,16 +2,23 @@
 
 namespace App\Service;
 
-use App\BusinessLogic\LoanAvailabilityFilters\FilterRegistry;
 use App\Contracts\CustomerInterface;
+use App\Contracts\LoanAvailabilityFiltersProviderInterface;
 
 class LoanAvailabilityService
 {
+    private LoanAvailabilityFiltersProviderInterface $filterProvider;
+
+    public function __construct(LoanAvailabilityFiltersProviderInterface $filterProvider)
+    {
+        $this->filterProvider = $filterProvider;
+    }
+
     public function checkAvailabilityForCustomer(CustomerInterface $customer): array
     {
         $declineReasons = [];
 
-        foreach(FilterRegistry::getAll() as $filter) {
+        foreach($this->filterProvider->getAll() as $filter) {
             $declineReason = $filter->check($customer);
             if ($declineReason) {
                 $declineReasons[] = $declineReason;

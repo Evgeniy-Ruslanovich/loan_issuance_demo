@@ -3,13 +3,14 @@
 namespace App\BusinessLogic\CreditProduct;
 
 use App\Contracts\CreditProductInterface;
+use App\Contracts\CreditProductProviderInterface;
 
-abstract class CreditProductRegistry
+class CreditProductProvider implements CreditProductProviderInterface
 {
     /**
      * @return CreditProductInterface[]
      */
-    public static function getAll(): array
+    public function getAll(): array
     {
         $product1 = new CreditProductDto('normal', 'Normal loan for normal bro', 'Usual Bank inc.', 10.5);
         $product2 = new CreditProductDto('halal', 'Totally halal credit Zero rate for trusted people', 'Umma bank', 0);
@@ -18,9 +19,9 @@ abstract class CreditProductRegistry
         return [$product1, $product2, $product3];
     }
 
-    public static function getByCode(string $code): ?CreditProductDto
+    public function getByCode(string $code): ?CreditProductInterface
     {
-        $allProducts = self::getAll();
+        $allProducts = $this->getAll();
         foreach ($allProducts as $product) {
             if ($code === $product->getCode()) {
                 return $product;
