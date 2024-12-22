@@ -53,6 +53,7 @@ class CustomerController extends AbstractController
             ->setLastName($data->get('lastName'))
             ->setEmail($data->get('email'))
             ->setFico($data->get('fico'))
+            ->setIncome($data->get('income'))
             ->setSsn($data->get('ssn'))
             ->setAge($data->get('age'))
             ->setPhoneNumber($data->get('phoneNumber'));
@@ -79,6 +80,7 @@ class CustomerController extends AbstractController
             ->setLastName($data->get('lastName'))
             ->setEmail($data->get('email'))
             ->setFico($data->get('fico'))
+            ->setIncome($data->get('income'))
             ->setSsn($data->get('ssn'))
             ->setAge($data->get('age'))
             ->setPhoneNumber($data->get('phoneNumber'));

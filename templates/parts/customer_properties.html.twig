@@ -1,0 +1,11 @@
+<div class="bordered-box">
+    <p><b>Customer overview</b></p>
+    <p><b>Name:</b> {{ customer.firstName }} {{ customer.lastName }}</p>
+    <p><b>Age:</b> {{ customer.age }}</p>
+    <p><b>SSN:</b> {{ customer.ssn }}</p>
+    <p><b>Address:</b> {{ customer.address.state }}, {{ customer.address.city }}, {{ customer.address.address }}, {{ customer.address.zip }}</p>
+    <p><b>FICO:</b> {{ customer.fico }}</p>
+    <p><b>Monthly income:</b> {{ customer.income }}$</p>
+    <p><b>Email:</b> {{ customer.email }}</p>
+    <p><b>Phone:</b> {{ customer.phoneNumber }}</p>
+</div>

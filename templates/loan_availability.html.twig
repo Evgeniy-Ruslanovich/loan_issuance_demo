@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <style>
+        #edit-form {
+            margin: 15px;
+            padding: 15px;
+            border: 1px solid grey;
+            border-radius: 15px;
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Checking loan availability{% endblock %}
+
+{% block content %}
+    {% include 'parts/customer_properties.html.twig' with {'customer' : customer} %}
+    <br>
+    <h3>Checking loan availability for customer...</h3>
+    {% if declineReasons is empty %}
+        <p style="color: green;">You can get a loan!</p>
+
+        <p>Available credit products:</p>
+        {% for product in availableProducts %}
+            <div class="bordered-box">
+                <h3>{{ product.name }}</h3>
+                <p><span><b>Code:</b> {{ product.code }}</span> | <span><b>Bank:</b> {{ product.bankName }}</span></p>
+                <p style="font-size: 1.3rem"><b>Rate:</b> {{ product.rate }}%</p>
+                <form method="post" action="{{ path('loan-issue') }}">
+                    <input type="hidden" name="bankName" value="{{ product.bankName }}">
+                    <input type="hidden" name="name" value="{{ product.name }}">
+                    <input type="hidden" name="code" value="{{ product.code }}">
+                    <input type="hidden" name="rate" value="{{ product.rate }}">
+                    <input type="hidden" name="customerId" value="{{ customer.id }}">
+                    <button type="submit" class="button-approve">Issue now</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        Can not issue a loan(
+        {% for reason in declineReasons %}
+            <p style="color: red;">{{ reason }}</p>
+        {% endfor %}
+    {% endif %}
+
+
+    <script>
+        var editButton = document.getElementById('edit-button');
+        var editFormDiv = document.getElementById('edit-form');
+        editButton.addEventListener('click', (e) => {
+            editFormDiv.style.display = 'block';
+        });
+    </script>
+{% endblock %}
