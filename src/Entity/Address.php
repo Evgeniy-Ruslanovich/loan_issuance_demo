@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Contracts\AddressInterface;
 use App\Repository\AddressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-class Address
+class Address implements AddressInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

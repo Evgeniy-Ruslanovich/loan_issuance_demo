@@ -20,6 +20,7 @@
     <p>SSN {{ customer.ssn }}</p>
     <p>Address {{ customer.address.state }}, {{ customer.address.city }}, {{ customer.address.address }}, {{ customer.address.zip }}</p>
     <p>FICO {{ customer.fico }}</p>
+    <p>Monthly income {{ customer.income }}</p>
     <p>Email {{ customer.email }}</p>
     <p>Phone {{ customer.phoneNumber }}</p>
     <br>
@@ -69,6 +70,9 @@
             <label>FICO
                 <input type="number" name="fico" required="required" value="{{ customer.fico }}">
             </label>
+            <label>Monthly income
+                <input type="number" name="income" required="required" value="{{ customer.income }}">
+            </label>
             <br>
             <label>Email
                 <input type="email" name="email" required="required" value="{{ customer.email }}">
@@ -82,6 +86,8 @@
             <button type="submit">Submit</button>
         </form>
     </div>
+    <hr>
+    <a href="{{ path('loan-check-availability', {customerId: customer.id}) }}">Check loan availability</a>
     <script>
         var editButton = document.getElementById('edit-button');
         var editFormDiv = document.getElementById('edit-form');

@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Contracts\CustomerInterface;
 use App\Repository\CustomerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-class Customer
+class Customer implements CustomerInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,6 +39,9 @@ class Customer
     #[ORM\ManyToOne(inversedBy: 'customers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Address $address = null;
+
+    #[ORM\Column]
+    private ?int $income = null;
 
     public function getId(): ?int
     {
@@ -136,6 +140,18 @@ class Customer
     public function setAddress(?Address $address): static
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getIncome(): ?int
+    {
+        return $this->income;
+    }
+
+    public function setIncome(int $income): static
+    {
+        $this->income = $income;
 
         return $this;
     }
