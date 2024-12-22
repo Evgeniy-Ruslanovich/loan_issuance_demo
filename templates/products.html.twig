@@ -4,4 +4,11 @@
 
 {% block content %}
     Credit products list
+    {% for product in products %}
+        <div class="bordered-box">
+            <h3>{{ product.name }}</h3>
+            <p><span><b>Code:</b> {{ product.code }}</span> | <span><b>Bank:</b> {{ product.bankName }}</span></p>
+            <p style="font-size: 1.3rem"><b>Rate:</b> {{ product.rate }}%</p>
+        </div>
+    {% endfor %}
 {% endblock %}

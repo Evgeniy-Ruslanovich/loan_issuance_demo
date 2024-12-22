@@ -15,20 +15,28 @@
 {% block title %}Checking loan availability{% endblock %}
 
 {% block content %}
-    <p>Name {{ customer.firstName }} {{ customer.lastName }}</p>
-    <p>Age {{ customer.age }}</p>
-    <p>SSN {{ customer.ssn }}</p>
-    <p>Address {{ customer.address.state }}, {{ customer.address.city }}, {{ customer.address.address }}, {{ customer.address.zip }}</p>
-    <p>FICO {{ customer.fico }}</p>
-    <p>Monthly income {{ customer.income }}</p>
-    <p>Email {{ customer.email }}</p>
-    <p>Phone {{ customer.phoneNumber }}</p>
+    {% include 'parts/customer_properties.html.twig' with {'customer' : customer} %}
     <br>
-    <br>
-
     <h3>Checking loan availability for customer...</h3>
     {% if declineReasons is empty %}
         <p style="color: green;">You can get a loan!</p>
+
+        <p>Available credit products:</p>
+        {% for product in availableProducts %}
+            <div class="bordered-box">
+                <h3>{{ product.name }}</h3>
+                <p><span><b>Code:</b> {{ product.code }}</span> | <span><b>Bank:</b> {{ product.bankName }}</span></p>
+                <p style="font-size: 1.3rem"><b>Rate:</b> {{ product.rate }}%</p>
+                <form method="post" action="{{ path('loan-issue') }}">
+                    <input type="hidden" name="bankName" value="{{ product.bankName }}">
+                    <input type="hidden" name="name" value="{{ product.name }}">
+                    <input type="hidden" name="code" value="{{ product.code }}">
+                    <input type="hidden" name="rate" value="{{ product.rate }}">
+                    <input type="hidden" name="customerId" value="{{ customer.id }}">
+                    <button type="submit" class="button-approve">Issue now</button>
+                </form>
+            </div>
+        {% endfor %}
     {% else %}
         Can not issue a loan(
         {% for reason in declineReasons %}
