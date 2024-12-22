@@ -25,12 +25,12 @@
 {% block content %}
     <div>Customers list</div>
     {% for customer in customers %}
-    <a href="/customer/{{ customer.id }}" class="customer_href">
+    <a href="/customer/get/{{ customer.id }}" class="customer_href">
         <div class="customer">
             <h3>{{ customer.firstName }} {{ customer.lastName }}</h3>
             <p>{{ customer.address.state }}, {{ customer.address.city }}</p>
         </div>
     </a>
     {% endfor %}
-    <a href="/customer/create-form"><button>Add new customer</button></a>
+    <a href="/customer/create"><button>Add new customer</button></a>
 {% endblock %}
