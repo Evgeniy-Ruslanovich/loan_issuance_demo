@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome! title{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <style>
+            body {
+                background-color: #e2f5fe;
+                margin: 0;
+            }
+            .content {
+                width: 800px;
+                max-width: 100%;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px 3px #757575;
+                box-sizing: border-box;
+            }
+        </style>
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+    <div class="content">
+        {% block content %}
+            yur num: {{ number }}
+        {% endblock %}
+        <hr>
+        <p><a href="/">HOME</a></p>
+    </div>
+    </body>
+</html>

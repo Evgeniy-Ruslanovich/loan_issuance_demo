@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <style>
+        #edit-form {
+            margin: 15px;
+            padding: 15px;
+            border: 1px solid grey;
+            border-radius: 15px;
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Customer overview{% endblock %}
+
+{% block content %}
+    <p>Name {{ customer.firstName }} {{ customer.lastName }}</p>
+    <p>Age {{ customer.age }}</p>
+    <p>SSN {{ customer.ssn }}</p>
+    <p>Address {{ customer.address.state }}, {{ customer.address.city }}, {{ customer.address.address }}, {{ customer.address.zip }}</p>
+    <p>FICO {{ customer.fico }}</p>
+    <p>Email {{ customer.email }}</p>
+    <p>Phone {{ customer.phoneNumber }}</p>
+    <br>
+    <button id="edit-button">Edit</button>
+    <br>
+
+    <div id="edit-form">
+        <form method="post" action="{{ path('customer_edit', {'id': customer.id}) }}">
+            <label>First name
+                <input type="text" name="firstName" required="required" value="{{ customer.firstName }}">
+            </label>
+            <br>
+            <label>Last name
+                <input type="text" name="lastName" required="required" value="{{ customer.lastName }}">
+            </label>
+            <br>
+            <label>Age
+                <input type="number" name="age" required="required" value="{{ customer.age }}">
+            </label>
+            <br>
+            <label>SSN
+                <input type="text" name="ssn" required="required" value="{{ customer.ssn }}">
+            </label>
+            <br>
+            <br>
+            <label>State
+                <select name="state" required="required">
+                    {% for key, name in states %}
+                        <option value="{{ key }}" {% if customer.address.state == key %} selected {% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <br>
+            <label>City
+                <input type="text" name="city" required="required" value="{{ customer.address.city }}">
+            </label>
+            <br>
+            <label>Address
+                <input type="text" name="address" required="required" value="{{ customer.address.address }}">
+            </label>
+            <br>
+            <label>ZIP
+                <input type="text" name="zip" required="required" value="{{ customer.address.zip }}">
+            </label>
+            <br>
+            <br>
+            <label>FICO
+                <input type="number" name="fico" required="required" value="{{ customer.fico }}">
+            </label>
+            <br>
+            <label>Email
+                <input type="email" name="email" required="required" value="{{ customer.email }}">
+            </label>
+            <br>
+            <label>Phone
+                <input type="tel" name="phoneNumber" required="required" value="{{ customer.phoneNumber }}">
+            </label>
+            <br>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        var editButton = document.getElementById('edit-button');
+        var editFormDiv = document.getElementById('edit-form');
+        editButton.addEventListener('click', (e) => {
+            editFormDiv.style.display = 'block';
+        });
+    </script>
+{% endblock %}
