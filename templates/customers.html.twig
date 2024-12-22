@@ -2,7 +2,35 @@
 
 {% block title %}Customers list{% endblock %}
 
+{% block stylesheets %}
+    <style>
+        .customer_href {
+            text-decoration: none;
+            color: black;
+        }
+        .customer {
+            border: 1px solid grey;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .customer:hover {
+            box-shadow: 0 0 10px 3px #757575;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div>Customers list</div>
+    {% for customer in customers %}
+    <a href="/customer/{{ customer.id }}" class="customer_href">
+        <div class="customer">
+            <h3>{{ customer.firstName }} {{ customer.lastName }}</h3>
+            <p>{{ customer.address.state }}, {{ customer.address.city }}</p>
+        </div>
+    </a>
+    {% endfor %}
     <a href="/customer/create-form"><button>Add new customer</button></a>
 {% endblock %}

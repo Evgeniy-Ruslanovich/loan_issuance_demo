@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Customers list{% endblock %}
+
+{% block content %}
+    <p>Name {{ customer.firstName }} {{ customer.lastName }}</p>
+    <p>Age {{ customer.age }}</p>
+    <p>SSN {{ customer.ssn }}</p>
+    <p>Address {{ customer.address.state }}, {{ customer.address.city }}, {{ customer.address.address }}, {{ customer.address.zip }}</p>
+    <p>FICO {{ customer.fico }}</p>
+    <p>Email {{ customer.email }}</p>
+    <p>Phone {{ customer.phoneNumber }}</p>
+    <a href="/customer/create-form"><button>Add new customer</button></a>
+{% endblock %}

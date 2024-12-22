@@ -4,11 +4,11 @@ namespace App\Enum;
 
 enum State: string
 {
-    case NY = 'New York';
-    case OH = 'Ohio';
-    case CA = 'California';
-    case NV = 'Nevada';
-    case CO = 'Colorado';
-    case KS = 'Kansas';
-    case KY = 'Kentucky';
+    case NY = 'NY';
+    case OH = 'OH';
+    case CA = 'CA';
+    case NV = 'NV';
+    case CO = 'CO';
+    case KS = 'KS';
+    case KY = 'KY';
 }

@@ -30,6 +30,9 @@ class Address
     #[ORM\OneToMany(targetEntity: Customer::class, mappedBy: 'address')]
     private Collection $customers;
 
+    #[ORM\Column(length: 64)]
+    private ?string $city = null;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -102,6 +105,18 @@ class Address
                 $customer->setAddress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
 
         return $this;
     }
