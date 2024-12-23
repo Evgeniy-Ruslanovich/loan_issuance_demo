@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\BusinessLogic\CreditProduct\CreditProductDto;
 use App\Entity\Customer;
 use App\Service\LoanAvailabilityService;
+use App\Service\OrderService;
 use App\Service\PrepareProductsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +38,11 @@ class LoanController extends AbstractController
     }
 
     #[Route('/loan/issue', name: 'loan-issue', methods: ['POST'])]
-    public function issue(Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\JsonResponse
+    public function issue(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        OrderService $orderService
+    ): Response
     {
         $data = $request->getPayload();
         $issuedLoan = new CreditProductDto(
@@ -48,7 +53,25 @@ class LoanController extends AbstractController
         );
         $customerId = $data->get('customerId');
         $customer = $entityManager->getRepository(Customer::class)->find($customerId);
+        $order = $orderService->issueOrder($customer, $issuedLoan);
 
-        return $this->json($issuedLoan->toArray(), Response::HTTP_OK);
+        return $this->redirectToRoute('order_get', ['id' => $order->getId()]);
+    }
+
+    #[Route('/loan/decline', name: 'loan-decline', methods: ['POST'])]
+    public function decline(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        OrderService $orderService
+    ): Response
+    {
+        $data = $request->getPayload();
+
+        $declineReason = $data->get('declineReason');
+        $customerId = $data->get('customerId');
+        $customer = $entityManager->getRepository(Customer::class)->find($customerId);
+        $order = $orderService->declineOrder($customer, $declineReason);
+
+        return $this->redirectToRoute('order_get', ['id' => $order->getId()]);
     }
 }

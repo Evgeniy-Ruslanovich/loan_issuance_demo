@@ -37,6 +37,14 @@
                 </form>
             </div>
         {% endfor %}
+        <form method="post" action="{{ path('loan-decline') }}">
+        <p style="color: red;">MANUAL DECLLINE</p>
+            <label>Type decline reason below<br>
+                <textarea name="declineReason"></textarea>
+            </label>
+            <input type="hidden" name="customerId" value="{{ customer.id }}">
+            <button type="submit">Decline</button>
+        </form>
     {% else %}
         Can not issue a loan(
         {% for reason in declineReasons %}

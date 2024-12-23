@@ -15,4 +15,6 @@ interface CreditProductInterface
     public function increaseRate(float $rate): void;
 
     public function decreaseRate(float $rate): void;
+
+    public function toArray(): array;
 }

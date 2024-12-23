@@ -3,5 +3,17 @@
 {% block title %}Orders list{% endblock %}
 
 {% block content %}
-    Orders list
+    {% for order in orders %}
+        <div class="bordered-box">
+            <a href="{{ path('order_get', {'id': order.id}) }}"><h3>ID: {{ order.id }}</h3></a>
+            <p>Status: {% if order.status == 1 %} <span style="color: green;">ISSUED</span> {% else %} <span style="color: red;">DECLINED</span> {% endif %}</p>
+            <p>Customer: <a href="{{ path('customer_get', {'id': order.customer.id}) }}">{{ order.customer.firstName }} {{ order.customer.lastName }}</a></p>
+            <p><b>Details:</b></p>
+            <ul>
+            {% for key, value in order.details %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
 {% endblock %}
